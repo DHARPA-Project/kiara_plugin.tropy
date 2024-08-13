@@ -18,7 +18,8 @@ class Degree_Ranking(KiaraModule):
     Weighted degree centrality uses a directed graph and measures the total number of connections or weight attached to a node.
 
     Uses networkx degree.
-    https://networkx.org/documentation/stable/reference/generated/networkx.classes.function.degree.html"""
+    https://networkx.org/documentation/stable/reference/generated/networkx.classes.function.degree.html
+    """
 
     _module_type_name = "tropy.create.degree_rank_list"
 
@@ -156,7 +157,8 @@ class Betweenness_Ranking(KiaraModule):
     Betweenness centrality measures the percentage of all shortest paths that a node appears on, therefore measuring the likeliness that a node may act as a connector or 'intermediary'.
 
     Uses a directed graph and networkx.betweenness_centrality()
-    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.betweenness_centrality.html#networkx.algorithms.centrality.betweenness_centrality"""
+    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.betweenness_centrality.html#networkx.algorithms.centrality.betweenness_centrality
+    """
 
     _module_type_name = "tropy.create.betweenness_rank_list"
 
@@ -268,7 +270,8 @@ class Eigenvector_Ranking(KiaraModule):
     Eigenvector centrality measures the extent to which a node is connected to other nodes of importance or influence.
 
     Uses an undirected graph networkx.eigenvector_centrality()
-    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.eigenvector_centrality.html#networkx.algorithms.centrality.eigenvector_centrality"""
+    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.eigenvector_centrality.html#networkx.algorithms.centrality.eigenvector_centrality
+    """
 
     _module_type_name = "tropy.create.eigenvector_rank_list"
 
@@ -374,7 +377,12 @@ class Eigenvector_Ranking(KiaraModule):
             )
             df = df.merge(df2, how="left", on="Node").reset_index(drop=True)
 
-        attribute_network = NetworkGraph.create_from_networkx_graph(G)
+        attribute_network = NetworkGraph.create_from_networkx_graph(
+            G,
+            source_column_name=network_data.source_column_name,
+            target_column_name=network_data.target_column_name,
+            node_id_column_name=network_data.node_id_column_name,
+        )
 
         outputs.set_values(network_result=df, centrality_network=attribute_network)
 
@@ -384,7 +392,8 @@ class Closeness_Ranking(KiaraModule):
     Closeness centrality measures the average shortest distance path between a node and all reachable nodes in the network.
 
     Uses a directed graph and networkx.closeness_centrality()
-    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.closeness_centrality.html#networkx.algorithms.centrality.closeness_centrality"""
+    https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.closeness_centrality.html#networkx.algorithms.centrality.closeness_centrality
+    """
 
     _module_type_name = "tropy.create.closeness_rank_list"
 
